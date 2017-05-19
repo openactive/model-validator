@@ -1,4 +1,8 @@
 $( document ).ready(function() {
+    $.getJSON( "https://raw.githubusercontent.com/openactive/model-validator/master/schemas/core-schema.json", function( data ) {
+        SCHEMA=data;
+    });
+
     $("#validate").on("click", function() {
        SCHEMA["$ref"] = "#/definitions/" + $("#type").val();
        $("#data-group").removeClass("has-success has-danger");
