@@ -29,7 +29,7 @@ By default the schema checks for strict conformance to the opportunity data spec
 
 This type of switching will be handled automatically by the validation application. These notes are provided for people doing manual testing.
 
-### Manual Validation
+## Manual Validation
 
 If you're doing manual checking of the data then you can use the following tools:
 
@@ -39,12 +39,16 @@ If you're doing manual checking of the data then you can use the following tools
 
 JSON Schema Lint allows you to paste in the schema and a sample document and will give live validation messages as you revise the document.
 
+## The Application
+
+There's a crude validator interface available at [https://oa-validator-experimental.herokuapp.com/](https://oa-validator-experimental.herokuapp.com/) (WARNING: URL will change in future).
+
+This uses the [AJV](https://github.com/epoberezkin/ajv) library to do validation of JSON adding to the textarea.
+
+It currently supports switching the validation context as described above so you can validate an Event, Place, etc. There is also a lax mode which will ignore any unknown properties (use with care!)
+
 ### Current Limitations
 
-The schemas are a work in progress, known issues are:
+There are lots, have a look at the [open issues](https://github.com/openactive/model-validator/issues). Especially the [schema improvements](https://github.com/openactive/model-validator/issues/6).
+ 
 
-* Requires definition of `oa:ActivityOpportunity`
-* `Schedule` needs more testing
-* Some properties, e.g. `schema:image` can be a URL or an array. This isn't supported yet, but easy to add
-* Place nesting via `containedInPlace` and `containsPlace1 is currently very permissive, need more constraints
-* No support for custom JSON-LD contexts
