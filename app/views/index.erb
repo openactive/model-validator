@@ -1,0 +1,66 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1>Opportunity Data Validator</h1>
+
+      <p>
+        An experimental validator for the
+          <a href="https://www.openactive.io/modelling-opportunity-data/EditorsDraft/">OpenActive Modelling Opportunity Data</a> specification
+      </p>
+
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col">
+      <form id="validator" class="form form-stacked">
+        <label>
+          Validate JSON as an
+          <select class="custom-select" id="type">
+            <option selected value="event">Event</option>
+            <option value="place">Place</option>
+            <option value="activity-list">Activity List</option>
+          </select>
+
+        </label>
+        <div class="form-group" id="data-group">
+          <textarea id="data" rows="10" class="form-control">
+          {
+          "@context": "https://www.openactive.io/ns/oa.jsonld",
+          "type": "Event",
+          "url": "...",
+          "name": "Swim For All",
+          "location": "..."
+          }
+          </textarea>
+        </div>
+        <div class="form-check">
+          <label class="form-check-label">
+            <input class="form-check-input" type="checkbox" id="mode" value="strict" checked="checked">
+            Strict mode
+          </label>
+        </div>
+
+        <button id="validate" class="btn btn-default">Validate</button>
+      </form>
+
+    </div>
+  </div>
+  <div class="row" id="error-report" style="margin-top:20px; display: none">
+    <div class="col">
+      <h3 class="text-danger">You have <span id="num-errors">1 error</span></h3>
+
+      <table class="table">
+        <thead>
+          <th>Field</th><th>Error</th><th>Value</th>
+        </thead>
+        <tbody id="errors">
+        <tr>
+          <td>.url</td><td>should match format "uri"</td><td>...</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
