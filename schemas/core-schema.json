@@ -1,0 +1,391 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "title": "Modelling Opportunity Data Schema",
+    "$ref": "#/definitions/event",
+    "definitions": {
+      "thing": {
+        "type": "object",
+        "properties": {
+            "type": {
+                "type": "string"
+            },
+            "url": {
+                "type": "string",
+                "format": "uri"
+            },
+            "name": {
+                "type": "string"
+            },
+            "description": {
+                "type": "string"
+            },
+            "logo": {
+                "type": "string",
+                "format": "uri"
+            },
+            "image": {
+                "type": "string",
+                "format": "uri"
+            }
+        },
+        "additionalProperties": false,
+        "required": ["type", "name"]
+      },
+      "event-schedule": {
+        "type": "object",
+        "properties": {
+            "type": {
+                "type": "string",
+                "enum": [ "Schedule" ]
+            },
+            "startDate": {
+                "oneOf": [
+                    { "type": "string", "format": "date" },
+                    { "type": "string", "format": "date-time" }
+                ]
+            },
+            "endDate": {
+                "oneOf": [
+                    { "type": "string", "format": "date" },
+                    { "type": "string", "format": "date-time" }
+                ]
+            },
+            "frequency": {
+                "type": "string",
+                "enum": ["hourly", "daily", "weekly", "monthly", "yearly"]
+            },
+            "byDay": {
+                "type": "string",
+                "format": "uri"
+            },
+            "byMonthDay": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 31
+            },
+            "byMonth": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 12
+            },
+            "startTime": {
+                "type": "string",
+                "pattern": "^[0-9]{2}:[0-9]{2}$"
+            },
+            "endTime": {
+                "type": "string",
+                "pattern": "^[0-9]{2}:[0-9]{2}$"
+            },
+            "count": {
+                "type": "integer",
+                "minimum": 1
+            },
+            "exceptDate": {
+                "oneOf": [
+                   { "type": "string", "format": "date" },
+                   { "type": "string", "format": "date-time" },
+                   { "type": "array", "items": { 
+                            "oneOf": [
+                               { "type": "string", "format": "date" },
+                               { "type": "string", "format": "date-time" }
+                            ]
+                   }} 
+                ]
+            }            
+        },
+        "additionalProperties": false
+      },
+      
+      "permissive-place": {
+        "type": "object",
+        "properties": {
+            "type": {
+                "type": "string"
+            },
+            "url": {
+                "type": "string",
+                "format": "uri"
+            },
+            "name": {
+                "type": "string"
+            }
+        },
+        "additionalProperties": true,
+        "required": ["type", "name", "url"]
+      },      
+      "geo": {
+        "type": "object",
+        "properties": {
+            "type": {
+                "type": "string"
+            },
+            "latitude": {
+                "oneOf": [
+                    { "type": "number" },
+                    { "type": "string" }
+                ]
+            },
+            "longitude": {
+                "oneOf": [
+                    { "type": "number" },
+                    { "type": "string" }  
+                ]
+            }
+        },
+        "additionalProperties": false,
+        "required": ["latitude", "longitude"]
+      },      
+      "address": {
+        "type": "object",
+        "properties": {
+            "type": {
+                "type": "string",
+                "enum": ["PostalAddress"]
+            },
+            "streetAddress": {
+                "type": "string"
+            },
+            "addressLocality": {
+                "type": "string"
+            },
+            "region": {
+                "type": "string"
+            },
+            "postalCode": {
+                "type": "string"
+            }
+        },
+        "additionalProperties": false,
+        "required": ["type"]
+      },  
+      "place": {
+        "type": "object",
+        "properties": {
+            "type": {
+                "type": "string",
+                "enum": ["Place", "SportsActivityLocation"]
+            },
+            "url": {
+                "type": "string",
+                "format": "uri"
+            },
+            "name": {
+                "type": "string"
+            },
+            "description": {
+                "type": "string"
+            },
+            "image": {
+                "type": "string",
+                "format": "uri"
+            },
+            "address": {
+                "oneOf": [
+                    { "type": "string" },
+                    { "$ref": "#/definitions/address" }
+                ]
+            },
+            "geo": {
+                "$ref": "#/definitions/geo"
+            },
+            "containedInPlace": {
+                "$ref": "#/definitions/permissive-place"
+            },
+            "containsPlace": {
+                "oneOf": [
+                    { "$ref": "#/definitions/permissive-place" },
+                    { "type": "array", "items": { "$ref": "#/definitions/permissive-place" } }
+                ]
+            },
+            "telephone": {
+                "type": "string"
+            },
+            "openingHoursSpecification": {
+                "type": "array",
+                "items": { "type": "object" }
+            }
+        },
+        "additionalProperties": false,
+        "required": ["type", "name"]      
+      },    
+      "activity": {
+        "type": "object",
+        "properties": {
+            "type": {
+                "type": "string",
+                "enum": ["Concept"]
+            },
+            "url": {
+                "type": "string",
+                "format": "uri"
+            },
+            "prefLabel": {
+                "type": "string"
+            },
+            "altLabel": {
+                "type": "string"
+            },
+            "inScheme": {
+                "type": "string",
+                "format": "uri-reference"
+            },
+            "broader": {
+                "type": "string"
+            },
+            "narrower": {
+                "type": "string"
+            },
+            "notation": {
+                "type": "string"
+            }
+            
+        },
+        "additionalProperties": false,
+        "required": ["type", "prefLabel"]
+      },
+      "activity-list": {
+        "type": "object",
+        "properties": {
+            "type": {
+                "type": "string",
+                "enum": ["ConceptScheme"]
+            },
+            "title": {
+                "type": "string"
+            },
+            "url": {
+                "type": "string",
+                "format": "uri"
+            },
+            "description": {
+                "type": "string"
+            },
+            "license": {
+                "type": "string",
+                "format": "uri"
+            },
+            "concepts": {
+                "type": "array",
+                "items": { "$ref": "#/definitions/activity"  }
+            }            
+        },
+        "additionalProperties": false,
+        "requied": ["type", "title", "url", "concepts"]
+      },
+      "event": {
+        "type": "object",
+        "properties": {
+            "@context": {
+                "type": "string",
+                "enum": ["https://www.openactive.io/ns/oa.jsonld"]
+            },
+            "type": {
+                "type": "string",
+                "enum": ["Event"]
+            },
+            "url": {
+                "type": "string",
+                "format": "uri"
+            },
+            "name": {
+                "type": "string"
+            },
+            "description": {
+                "type": "string"
+            },
+            "image": {
+                "type": "string",
+                "format": "uri"
+            },
+            "startDate": {
+                "oneOf": [
+                    { "type": "string", "format": "date" },
+                    { "type": "string", "format": "date-time" }                     
+                ]
+            },
+            "endDate": {
+                "oneOf": [
+                    { "type": "string", "format": "date" },
+                    { "type": "string", "format": "date-time" }                     
+                ]
+            },
+            "duration": {
+                "type": "string"
+            },
+            "location": {
+                "oneOf": [
+                   { "type": "string" },
+                   { "$ref": "#/definitions/address" },
+                   { "$ref": "#/definitions/place" }
+                ]
+            },
+            "organizer": {
+                "$ref": "#/definitions/thing" 
+            },
+            "contributor": {
+                "$ref": "#/definitions/thing" 
+            },
+            "leader": {
+                "$ref": "#/definitions/thing" 
+            },
+            "maximumAttendeeCapacity": {
+                "type": "integer"
+            },
+            "remainingAttendeeCapacity": {
+                "type": "integer"
+            },
+            "eventStatus": {
+                "type": "string",
+                "format": "uri",
+                "enum": [ "http://schema.org/EventCancelled", "http://schema.org/EventPostponed", "http://schema.org/EventRescheduled", "http://schema.org/EventScheduled" ]
+            },
+            "schedule": {
+                "type": "object"
+            },
+            "activity": {
+                "oneOf": [
+                    { "type": "string" },
+                    { "$ref": "#/definitions/activity" }
+                ]
+            },
+            "category": {
+                "oneOf": [
+                    { "type": "string" },
+                    { "type": "array", "items": { "type": "string" } }
+                ]
+            },
+            "ageRange": {
+                "type": "string",
+                "pattern": "^\\d*-?\\d*$"
+            },
+            "heightRange": {
+                "type": "string",
+                "pattern": "^\\d*-?\\d*$"
+            },
+            "weightRange": {
+                "type": "string",
+                "pattern": "^\\d*-?\\d*$"
+            },
+            "genderRestriction": {
+                "type": "string",
+                "enum": ["male", "female", "mixed"]
+            },
+            "programme":  {
+                "oneOf": [
+                    { "type": "string" },
+                    { "$ref": "#/definitions/activity" }
+                ]
+            },
+            "attendeeInstructions": {
+                "type": "string"
+            },
+            "schedule": {
+                "type": "object"
+            }
+            
+        },
+        "additionalProperties": false,
+        "required": ["type", "url", "name", "location"]
+      }          
+    }
+}

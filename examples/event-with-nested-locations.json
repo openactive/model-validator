@@ -1,0 +1,43 @@
+{
+   "@context": "https://www.openactive.io/ns/oa.jsonld",
+   "type": "Event",
+   "startDate" : "2017-07-25T15:30:00Z",
+   "name" : "Swim For All",
+   "location" : {
+      "containedInPlace" : {
+         "address" : {
+            "addressRegion" : "London East",
+            "streetAddress" : "Tiller Road",
+            "addressLocality" : "Tower Hamlets",
+            "postalCode" : "E14 8PX",
+            "type" : "PostalAddress"
+         },
+         "name" : "Tiller Leisure Centre",
+         "telephone" : "020 7987 5211",
+         "url" : "http://localhost:3000/leisure-centre/tower-hamlets/tiller-leisure-centre",
+         "geo" : {
+            "latitude" : 51.4961,
+            "longitude" : -0.024559
+         },
+         "type" : "Place"
+      },
+      "type" : "SportsActivityLocation",
+      "name" : "Swimming Pool - Large"
+   },
+   "endDate" : "2017-07-25T07:30:00Z",
+   "duration" : "PT-480M",
+   "url" : "http://localhost:3000/leisure-centre/tower-hamlets/tiller-leisure-centre/timetable",
+   "image" : "https://d21w66tk60x18u.cloudfront.net/uploads/asset/attachment/27354/Homepage_Panels-Sport_Relief_2016.jpg",
+   "genderRestriction" : "mixed",
+   "ageRange" : "11-15",
+   "organizer" : {
+      "name" : "Greenwich Leisure Ltd",
+      "type" : "Organization"
+   },
+   "description" : "<p>This is a general swim for everyone - all ages and all abilities although swim safely rules do apply.</p>\r\n<p>Just come along at the times listed and enjoy your swim in our pool.</p>\r\n<p> </p>",
+   "activity" : {
+      "type" : "Concept",
+      "inScheme" : "http://localhost:3000/odi/activities",
+      "prefLabel" : "Swimming"
+   }
+}
